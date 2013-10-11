@@ -15,10 +15,11 @@ apt-get install -y git
 
 ## basc network configuration to enhance the system
 ## download git server (user can change)
-git clone https://github.com/parkjunhyo/system_netcfg_exchange
-$(pwd)/netcfg_exchange_j/adjust_timeout_failsafe.sh
-$(pwd)/netcfg_exchange_j/packet_forward_enable.sh
-$(pwd)/netcfg_exchange_j/google_dns_setup.sh
+git_repo_name="system_netcfg_exchange"
+git clone http://github.com/parkjunhyo/$git_repo_name
+$(pwd)/$git_repo_name/adjust_timeout_failsafe.sh
+$(pwd)/$git_repo_name/packet_forward_enable.sh
+$(pwd)/$git_repo_name/google_dns_setup.sh
 
 ## download openvswitch source file from git
 ovs_source=$(pwd)/openvswitch
