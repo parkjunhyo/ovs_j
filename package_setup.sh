@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 
 ## install necessary utility for setup
-echo "nameservers 8.8.8.8" >> /etc/resolv.conf
+if [[ ! `cat /etc/resolve.conf | grep '8.8.8.8'` ]]
+then
+ echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+fi
 apt-get install -y git
 
 ## basc network configuration to enhance the system
