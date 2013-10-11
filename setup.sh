@@ -5,4 +5,4 @@
 ## soft_mode = soft_kernel_setup.sh
 ## package_mode = package_setup.sh
 ovs_setup_mode=${ovs_setup_mode:=soft_kernel_setup.sh}
-$(find / -name $ovs_setup_mode)
+$(find / -wholename $(pwd)/$ovs_setup_mode)
