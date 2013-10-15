@@ -21,6 +21,9 @@ $(pwd)/$git_repo_name/adjust_timeout_failsafe.sh
 $(pwd)/$git_repo_name/packet_forward_enable.sh
 $(pwd)/$git_repo_name/google_dns_setup.sh
 
+## stop the QEMU and Livbirt
+/etc/init.d/libvirt-bin stop
+/etc/init.d/qemu-kvm stop
 
 ## download openvswitch source file from git
 ovs_source=$(pwd)/openvswitch
