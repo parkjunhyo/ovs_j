@@ -34,10 +34,11 @@ lsmod > $kernel_history
 
 ## setup soft kernel module installation
 apt-get install -y build-essential fakeroot
-apt-get install -y debhelper autoconf automake automake1.10 libssl-dev python-all python-qt4 python-twisted-conch
-apt-get install -y dkms
+apt-get build-dep -y openvswitch
+apt-get install -y module-assistant
+apt-get install -y libssl-dev python-all 
+apt-get install -y dkms ipsec-tools python-twisted-web racoon
 apt-get install -y iperf traceroute
-apt-get upgrade -y
 
 ## soft kernel module setup
 working_directory=$(pwd)
@@ -46,9 +47,9 @@ then
  cd $ovs_source
  fakeroot debian/rules binary
  cd $working_directory
- dpkg -i $(ls openvswitch-datapath-dkms*)
- dpkg -i $(ls openvswitch-common*)
- dpkg -i $(ls openvswitch-switch*)
+ ls $(pwd)/*.deb | xargs dpkg -i
+ module-assistant auto-install openvswitch-datapath
+ sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
 fi
 
 ## kernel boot up setting, change the /etc/modules files

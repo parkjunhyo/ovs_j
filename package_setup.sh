@@ -26,12 +26,9 @@ kernel_history=$(pwd)/kernel_history.log
 lsmod > $kernel_history
 
 ## setup soft kernel module installation
-apt-get install -y openvswitch-brcompat 
-apt-get install -y openvswitch-common 
-apt-get install -y openvswitch-controller 
-apt-get install -y openvswitch-datapath-dkms 
-apt-get install -y openvswitch-datapath-source
-apt-get upgrade -y
+## find the openvswitch package (apt-get install openvswitch-* .... confirm package!)
+apt-get install -y openvswitch-switch quantum-plugin-openvswitch openvswitch-ipsec openvswitch-datapath-source openvswitch-controller python-openvswitch openvswitch-datapath-dkms openvswitch-brcompat openvswitch-pki openvswitch-common
+sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
 
 ## check the openvswitch version
 ovsd_ver=$(pwd)/package_ovsd_version
