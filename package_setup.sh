@@ -21,10 +21,6 @@ then
  rmmod bridge
 fi
 
-## stop the QEMU and Livbirt
-/etc/init.d/libvirt-bin stop
-/etc/init.d/qemu-kvm stop
-
 ## before OVS kernel module setup, save the current kernel status history
 kernel_history=$(pwd)/kernel_history.log
 lsmod > $kernel_history
