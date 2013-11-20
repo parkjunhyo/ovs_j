@@ -41,6 +41,7 @@ apt-get install -y gcc uml-utilities libtool build-essential git pkg-config linu
 apt-get install -y dkms ipsec-tools python-twisted-web racoon
 apt-get install -y python-all 
 apt-get install -y iperf traceroute
+apt-get install -y autoconf
 
 ## hard kernel module setting
 working_directory=$(pwd)
