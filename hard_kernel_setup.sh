@@ -35,9 +35,8 @@ lsmod > $kernel_history
 ## setup hard kernel module installation
 apt-get install -y libssl-*
 apt-get install -y sparse
-apt-get install -y build-essential
-apt-get install -y python-simplejson 
 apt-get install -y gcc uml-utilities libtool build-essential git pkg-config linux-headers-`uname -r`
+apt-get install -y python-simplejson python-all uml-utilities graphviz python-qt4 python-twisted-conch
 apt-get install -y dkms ipsec-tools python-twisted-web racoon
 apt-get install -y python-all 
 apt-get install -y iperf traceroute
