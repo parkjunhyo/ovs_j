@@ -36,7 +36,7 @@ lsmod > $kernel_history
 apt-get install -y build-essential fakeroot
 apt-get build-dep -y openvswitch
 apt-get install -y module-assistant
-apt-get install -y libssl-dev python-all 
+apt-get install -y libssl-dev python-all uuid-runtime 
 apt-get install -y autoconf automake
 apt-get install -y dkms ipsec-tools python-twisted-web racoon
 apt-get install -y python-simplejson python-all uml-utilities graphviz python-qt4 python-twisted-conch
@@ -51,7 +51,7 @@ then
  cd $working_directory
  ls $(pwd)/*.deb | xargs dpkg -i
  module-assistant auto-install openvswitch-datapath
- sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
+# sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
 fi
 
 ## kernel boot up setting, change the /etc/modules files
