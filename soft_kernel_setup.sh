@@ -37,6 +37,7 @@ apt-get install -y build-essential fakeroot
 apt-get build-dep -y openvswitch
 apt-get install -y module-assistant
 apt-get install -y libssl-dev python-all 
+apt-get install -y autoconf automake
 apt-get install -y dkms ipsec-tools python-twisted-web racoon
 apt-get install -y python-simplejson python-all uml-utilities graphviz python-qt4 python-twisted-conch
 apt-get install -y iperf traceroute
