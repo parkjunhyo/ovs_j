@@ -32,6 +32,7 @@ then
  git clone https://github.com/parkjunhyo/deppkg_j.git
  cd $working_directory/deppkg_j
  ./system_deppkg.sh
+ ./racoon_setup.exp
  cd $working_directory
 fi
 apt-get build-dep -y openvswitch
