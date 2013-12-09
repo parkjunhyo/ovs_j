@@ -15,35 +15,43 @@ apt-get install -y git
 
 ## basc network configuration to enhance the system
 ## download git server (user can change)
-git_repo_name="system_netcfg_exchange"
-git clone http://github.com/parkjunhyo/$git_repo_name
-$(pwd)/$git_repo_name/adjust_timeout_failsafe.sh
-$(pwd)/$git_repo_name/packet_forward_enable.sh
-$(pwd)/$git_repo_name/google_dns_setup.sh
+working_directory=$(pwd)
+
+if [ ! -d $working_directory/system_netcfg_exchange ]
+then
+ git clone https://github.com/parkjunhyo/system_netcfg_exchange.git
+ cd $working_directory/system_netcfg_exchange
+ ./adjust_timeout_failsafe.sh
+ ./packet_forward_enable.sh
+ ./google_dns_setup.sh
+ cd $working_directory
+fi
+
+if [ ! -d $working_directory/deppkg_j ]
+then
+ git clone https://github.com/parkjunhyo/deppkg_j.git
+ cd $working_directory/deppkg_j
+ ./system_deppkg.sh
+ cd $working_directory
+fi
+apt-get build-dep -y openvswitch
+apt-get install -qqy --force-yes sparse
+apt-get install -qqy --force-yes uuid-runtime ipsec-tools iperf traceroute
+
 
 ## download openvswitch source file from git
-ovs_source=$(pwd)/openvswitch
-if [[ ! -d $ovs_source ]]
+ovs_source=$working_directory/openvswitch
+if [ ! -d $ovs_source ]
 then
+ cd $working_directory
  git clone git://openvswitch.org/openvswitch
 fi
 
 ## before OVS kernel module setup, save the current kernel status history
-kernel_history=$(pwd)/kernel_history.log
+kernel_history=$working_directory/kernel_history.log
 lsmod > $kernel_history
 
-## setup hard kernel module installation
-apt-get install -y libssl-*
-apt-get install -y sparse
-apt-get install -y gcc uml-utilities libtool build-essential git pkg-config linux-headers-`uname -r`
-apt-get install -y python-simplejson python-all uml-utilities graphviz python-qt4 python-twisted-conch
-apt-get install -y dkms ipsec-tools python-twisted-web racoon
-apt-get install -y python-all 
-apt-get install -y iperf traceroute
-apt-get install -y autoconf
-
 ## hard kernel module setting
-working_directory=$(pwd)
 if [[ ! `lsmod | grep -i 'openvswitch'` ]]
 then
  cd $ovs_source
@@ -55,7 +63,7 @@ then
  modprobe openvswitch
  cd $working_directory
  depmod -a
- sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
+# sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
 fi
 
 ## check openvswitch and gre dependancy with module
@@ -142,14 +150,10 @@ fi
 ## openvswitch start on booting up, change the /etc/rc.local file
 if [[ ! `cat /etc/rc.local | grep -i $hard_ovsd_startup` ]]
 then
- temp_file=/tmp/$(date +%Y%m%d%H%M%S)
- touch $temp_file
- chmod 777 $temp_file
- chown root.root $temp_file
- cat /etc/rc.local | awk '{if($0!~/^exit[[:space:]]*[[:digit:]]*/){print $0}}' > $temp_file
- echo "$hard_ovsd_startup" >> $temp_file
- echo "exit 0" >> $temp_file
- cp $temp_file /etc/rc.local
- rm -rf $temp_file
+ sed -i "/exit[[:space:]]*[[:digit:]]/d" /etc/rc.local
+ echo " " >> /etc/rc.local
+ echo "$hard_ovsd_startup" >> /etc/rc.local
+ echo " " >> /etc/rc.local
+ echo "exit 0" >> /etc/rc.local
 fi
 
