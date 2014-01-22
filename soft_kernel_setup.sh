@@ -11,7 +11,7 @@ if [[ ! `cat /etc/resolv.conf | grep '8.8.8.8'` ]]
 then
  echo "nameserver 8.8.8.8" >> /etc/resolv.conf
 fi
-apt-get install -y git
+apt-get install -y git expect
 
 ## basc network configuration to enhance the system
 ## download git server (user can change)
