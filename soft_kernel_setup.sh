@@ -58,7 +58,7 @@ then
  fakeroot debian/rules binary
  cd $working_directory
  ls $(pwd)/*.deb | xargs dpkg -i
- module-assistant auto-install openvswitch-datapath
+# module-assistant auto-install openvswitch-datapath
 # sed -i 's/# BRCOMPAT=no/BRCOMPAT=yes/' /etc/default/openvswitch-switch
 fi
 
